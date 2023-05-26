@@ -34,7 +34,11 @@ void Int_CQuartic  ( real CData[], const int CSize[3], const int CStart[3], cons
 void Int_Quartic   ( real CData[], const int CSize[3], const int CStart[3], const int CRange[3],
                      real FData[], const int FSize[3], const int FStart[3], const int NComp,
                      const int UnwrapPhase, const bool Monotonic[], const real MonoCoeff, const bool OppSign0thOrder );
-
+#if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
+void Int_Spectral  ( real CData[], const int CSize[3], const int CStart[3], const int CRange[3],
+                     real FData[], const int FSize[3], const int FStart[3], const int NComp,
+                     const int UnwrapPhase, const bool Monotonic[], const real MonoCoeff, const bool OppSign0thOrder );
+#endif // #if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
 
 
 
@@ -64,6 +68,7 @@ void Int_Quartic   ( real CData[], const int CSize[3], const int CStart[3], cons
 //                                      INT_QUAD     : quadratic
 //                                      INT_CQUAR    : conservative quartic
 //                                      INT_QUAR     : quartic
+//                                      INT_SPECTARL : spectral
 //                UnwrapPhase     : Unwrap phase when OPT__INT_PHASE is on (for ELBDM only)
 //                Monotonic       : Ensure that all interpolation results are monotonic
 //                                  --> Useful for interpolating positive-definite variables, such as density, energy, ...
@@ -543,6 +548,9 @@ static IntSchemeFunc_t Int_SelectScheme( const IntScheme_t IntScheme )
       case INT_QUAD     :  return Int_Quadratic;   break;
       case INT_CQUAR    :  return Int_CQuartic;    break;
       case INT_QUAR     :  return Int_Quartic;     break;
+#     if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
+      case INT_SPECTRAL :  return Int_Spectral;    break;
+#     endif // #if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
       default           :  Aux_Error( ERROR_INFO, "incorrect parameter %s = %d !!\n", "IntScheme", IntScheme );
    }
 
