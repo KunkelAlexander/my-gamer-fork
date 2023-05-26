@@ -1,17 +1,16 @@
 #include "GAMER.h"
 
 
+#if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
+
+
 //gsl library
-#ifdef SUPPORT_GSL
 #  include <gsl/gsl_sf_gegenbauer.h>
 #  include <gsl/gsl_complex_math.h>
 #  include <gsl/gsl_permutation.h>
 #  include <gsl/gsl_permute_vector.h>
 #  include <gsl/gsl_permute_matrix.h>
 #  include <gsl/gsl_linalg.h>
-#else
-#  error : ERROR : Spectral interpolation requires SUPPORT_GSL
-#endif // #ifdef SUPPORT_GSL
 
 
 #include "FFTW.h"
@@ -592,3 +591,5 @@ void Int_Spectral(  real CData[], const int CSize[3], const int CStart[3], const
    fftw_free( Output );
 
 } // FUNCTION : Int_Spectral
+
+#endif // #if ( defined(SUPPORT_FFTW) && defined(SUPPORT_GSL) )
