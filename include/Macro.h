@@ -665,12 +665,12 @@
 // set default parameters of gram extension scheme
 # if ( MODEL == ELBDM  &&  WAVE_SCHEME == WAVE_GRAMFE )
 //  number of boundary points used for Gram polynomial space on boundary
-#   define GRAMFE_NDELTA 14
+#   define GRAMFE_NDELTA 5
 //  maximum order of Gram polynomials on boundary
 //  for GRAMFE_ORDER < GRAMFE_NDELTA, the boundary information is projected
 //  onto a lower-dimensional polynomial space
 //  this increases the stability but decreases the accuracy of the algorithm
-#   define GRAMFE_ORDER  14
+#   define GRAMFE_ORDER  5
 
 //  a boundary of size GRAMFE_NDELTA can only support polynomials of degree up to GRAMFE_ORDER
 #   if ( GRAMFE_ORDER > GRAMFE_NDELTA )
